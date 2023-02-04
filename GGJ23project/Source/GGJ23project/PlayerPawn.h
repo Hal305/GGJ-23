@@ -31,12 +31,12 @@ public:
 
 	//new code
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
-	USkeletalMeshComponent* PlayerMesh = nullptr;
+	USceneComponent* PlayerMesh = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
-	USpringArmComponent* SpringArm = nullptr;
+	USpringArmComponent* SpringArmComp = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
-	UCameraComponent* Camera = nullptr;
+	UCameraComponent* CameraComp = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
 	float Speed = 5.f;

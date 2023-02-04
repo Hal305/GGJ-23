@@ -14,32 +14,30 @@ APlayerPawn::APlayerPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	
 	//Initialising
+	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("PlayerMesh"));
-	SetRootComponent(PlayerMesh);
 	
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
-	SpringArm->bDoCollisionTest = false;
-	SpringArm->SetUsingAbsoluteRotation(true);
-	SpringArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
-	SpringArm->TargetArmLength = 225.f;
-	SpringArm->bEnableCameraLag = false;
-	SpringArm->CameraLagSpeed = 5.f;
-	SpringArm->SetupAttachment(PlayerMesh);
+	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmCompComp"));
+	SpringArmComp->SetupAttachment(PlayerMesh);
+	SpringArmComp->bDoCollisionTest = false;
+	SpringArmComp->SetUsingAbsoluteRotation(true);
+	SpringArmComp->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
+	SpringArmComp->TargetArmLength = 225.f;
+	SpringArmComp->bEnableCameraLag = false;
+	SpringArmComp->CameraLagSpeed = 5.f;
 
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
-	SpringArm->bUsePawnControlRotation = false;
-	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
-
-
+	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	SpringArmComp->bUsePawnControlRotation = false;
+	CameraComp->SetupAttachment(SpringArmComp, USpringArmComponent::SocketName);
+	
 }
 
 // Called when the game starts or when spawned
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
 }
 
 // Called every frame
@@ -59,11 +57,11 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void APlayerPawn::MoveUp(float Value)
 {
-	PlayerMesh->AddRelativeLocation(FVector(Value, 0, 0.f) * Speed);
+	RootComponent->AddRelativeLocation(FVector(Value, 0, 0.f) * Speed);
 }
 
 void APlayerPawn::MoveSide(float Value)
 {
-	PlayerMesh->AddRelativeLocation(FVector(0, Value, 0.f) * Speed);
+	RootComponent->AddRelativeLocation(FVector(0, Value, 0.f) * Speed);
 }
 
