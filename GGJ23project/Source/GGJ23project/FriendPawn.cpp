@@ -21,9 +21,7 @@ void AFriendPawn::BeginPlay()
 void AFriendPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	if(found)
-		FollowPlayer();
+	
 }
 
 // Called to bind functionality to input
@@ -31,14 +29,4 @@ void AFriendPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-}
-
-void AFriendPawn::FollowPlayer()
-{
-	
-}
-
-void AFriendPawn::FoundByPlayer()
-{
-	found = true;
 }

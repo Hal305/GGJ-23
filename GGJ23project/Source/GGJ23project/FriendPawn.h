@@ -3,11 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Pawn.h"
+#include "GameFramework/Character.h"
 #include "FriendPawn.generated.h"
 
 UCLASS()
-class GGJ23PROJECT_API AFriendPawn : public APawn
+class GGJ23PROJECT_API AFriendPawn : public ACharacter
 {
 	GENERATED_BODY()
 
@@ -25,15 +25,5 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	void FollowPlayer();
-
-	void FoundByPlayer();
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
-	float radius = 1.f; 
-
-private:
-	
-	bool found = false;
 };
