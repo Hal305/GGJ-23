@@ -2,8 +2,11 @@
 
 
 #include "PlayerPawn.h"
+#include "GameFramework/PlayerInput.h"
+#include "Components/InputComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Camera/CameraComponent.h" 
 
 // Sets default values
 APlayerPawn::APlayerPawn()
@@ -11,21 +14,23 @@ APlayerPawn::APlayerPawn()
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	
+	//Initialising
+	PlayerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlayerMesh"));
+	SetRootComponent(PlayerMesh);
+	
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
+	SpringArm->bDoCollisionTest = false;
+	SpringArm->SetUsingAbsoluteRotation(true);
+	SpringArm->SetRelativeRotation(FRotator(-30.f, 0.f, 0.f));
+	SpringArm->TargetArmLength = 500.f;
+	SpringArm->bEnableCameraLag = false;
+	SpringArm->CameraLagSpeed = 5.f;
+	SpringArm->SetupAttachment(PlayerMesh);
 
-	//Initialize the Camera Boom    
-	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
-
-	//Setup Camera Boom attachment to the Root component of the class
-	SpringArm->SetupAttachment(RootComponent);
-
-	//Set the boolean to use the PawnControlRotation to true.
+	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	SpringArm->bUsePawnControlRotation = false;
-
-	//Initialize the FollowCamera
-	Camera = CreateDefaultSubobject<UCameraComponent>(TEXT("FollowCamera"));
-
-	//Set FollowCamera attachment to the Camera Boom
-	Camera->SetupAttachment(SpringArm);
+	Camera->SetupAttachment(SpringArm, USpringArmComponent::SocketName);
 
 
 }
@@ -42,6 +47,7 @@ void APlayerPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	PlayerMesh->AddRelativeLocation(FVector(UpDist, SideDist, 0.f) * Speed);
 	
 }
 
@@ -49,26 +55,18 @@ void APlayerPawn::Tick(float DeltaTime)
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	
 	PlayerInputComponent->BindAxis("MoveUp", this, &APlayerPawn::MoveUp);
 	PlayerInputComponent->BindAxis("MoveSide", this, &APlayerPawn::MoveSide);
 }
 
-void APlayerPawn::MoveUp(float AxisValue)
+void APlayerPawn::MoveUp(float Value)
 {
-	if ((Controller != nullptr) && (AxisValue != 0.0f))
-	{
-		const FVector Direction = {1,0,0};
-		AddMovementInput(Direction, AxisValue);
-	}
+	UpDist = Value;
 }
 
-void APlayerPawn::MoveSide(float AxisValue)
+void APlayerPawn::MoveSide(float Value)
 {
-	if ((Controller != nullptr) && (AxisValue != 0.0f))
-	{
-		const FVector Direction = {0,1,0};
-		AddMovementInput(Direction, AxisValue);
-	}
+	SideDist = Value;
 }
 

@@ -4,6 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Components/StaticMeshComponent.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 #include "PlayerPawn.generated.h"
 
 UCLASS()
@@ -26,17 +29,24 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
-	class USkeletalMeshComponent* PlayerMesh;
+	//new code
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	UStaticMeshComponent* PlayerMesh = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	USpringArmComponent* SpringArm = nullptr;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	UCameraComponent* Camera = nullptr;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	float Speed = 5.f;
+
+private:
+	FVector SetLocation = FVector::ZeroVector;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
-	class USpringArmComponent* SpringArm;
+	void MoveUp(float Value);
+	void MoveSide(float Value);
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Camera")
-	class UCameraComponent* Camera;
-
-	void MoveUp(float AxisValue);
-
-	void MoveSide(float AxisValue); 
+	float UpDist = 0.f;
+	float SideDist = 0.f;
 };
