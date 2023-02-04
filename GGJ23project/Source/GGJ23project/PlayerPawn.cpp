@@ -11,6 +11,7 @@
 // Sets default values
 APlayerPawn::APlayerPawn()
 {
+	
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
@@ -53,6 +54,7 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	PlayerInputComponent->BindAxis("MoveUp", this, &APlayerPawn::MoveUp);
 	PlayerInputComponent->BindAxis("MoveSide", this, &APlayerPawn::MoveSide);
+	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &APlayerPawn::Interact);
 }
 
 void APlayerPawn::MoveUp(float Value)
@@ -67,6 +69,7 @@ void APlayerPawn::MoveSide(float Value)
 
 void APlayerPawn::Interact()
 {
-	
+	// if((GetActorLocation() - NPC->GetActorLocation()).Size() < NPC->radius)
+	// 	;
 }
 

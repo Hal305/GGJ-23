@@ -6,7 +6,7 @@
 #include "GameFramework/Pawn.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Components/MeshComponent.h"
+#include "FriendPawn.h"
 #include "PlayerPawn.generated.h"
 
 UCLASS()
@@ -28,11 +28,11 @@ public:
 
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
+	
 	//new code
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	USceneComponent* PlayerMesh = nullptr;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	USpringArmComponent* SpringArmComp = nullptr;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
@@ -41,11 +41,13 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	float Speed = 5.f;
 
+	AFriendPawn* NPC = nullptr;
+
 private:
 	FVector SetLocation = FVector::ZeroVector;
 	
 	void MoveUp(float Value);
 	void MoveSide(float Value);
 	void Interact();
-
+	
 };

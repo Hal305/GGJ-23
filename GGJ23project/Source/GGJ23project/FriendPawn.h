@@ -28,6 +28,12 @@ public:
 
 	void FollowPlayer();
 
+	void FoundByPlayer();
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Friend")
+	float radius = 1.f; 
+
 private:
+	
 	bool found = false;
 };
