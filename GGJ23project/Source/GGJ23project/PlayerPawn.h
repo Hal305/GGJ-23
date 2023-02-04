@@ -4,9 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "Components/MeshComponent.h"
 #include "PlayerPawn.generated.h"
 
 UCLASS()
@@ -30,15 +30,15 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 	//new code
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	USceneComponent* PlayerMesh = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	USpringArmComponent* SpringArmComp = nullptr;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	UCameraComponent* CameraComp = nullptr;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 	float Speed = 5.f;
 
 private:
@@ -46,5 +46,6 @@ private:
 	
 	void MoveUp(float Value);
 	void MoveSide(float Value);
+	void Interact();
 
 };

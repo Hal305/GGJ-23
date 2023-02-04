@@ -37,7 +37,7 @@ APlayerPawn::APlayerPawn()
 void APlayerPawn::BeginPlay()
 {
 	Super::BeginPlay();
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
 }
 
 // Called every frame
@@ -50,7 +50,7 @@ void APlayerPawn::Tick(float DeltaTime)
 void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	PlayerInputComponent->BindAxis("MoveUp", this, &APlayerPawn::MoveUp);
 	PlayerInputComponent->BindAxis("MoveSide", this, &APlayerPawn::MoveSide);
 }
@@ -63,5 +63,10 @@ void APlayerPawn::MoveUp(float Value)
 void APlayerPawn::MoveSide(float Value)
 {
 	RootComponent->AddRelativeLocation(FVector(0, Value, 0.f) * Speed);
+}
+
+void APlayerPawn::Interact()
+{
+	
 }
 
