@@ -4,7 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "PlayerPawn.generated.h"
@@ -31,7 +31,7 @@ public:
 
 	//new code
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
-	UStaticMeshComponent* PlayerMesh = nullptr;
+	USkeletalMeshComponent* PlayerMesh = nullptr;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "PlayerMesh")
 	USpringArmComponent* SpringArm = nullptr;
@@ -47,6 +47,4 @@ private:
 	void MoveUp(float Value);
 	void MoveSide(float Value);
 
-	float UpDist = 0.f;
-	float SideDist = 0.f;
 };

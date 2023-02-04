@@ -16,14 +16,14 @@ APlayerPawn::APlayerPawn()
 
 	
 	//Initialising
-	PlayerMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PlayerMesh"));
+	PlayerMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("PlayerMesh"));
 	SetRootComponent(PlayerMesh);
 	
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
 	SpringArm->bDoCollisionTest = false;
 	SpringArm->SetUsingAbsoluteRotation(true);
-	SpringArm->SetRelativeRotation(FRotator(-30.f, 0.f, 0.f));
-	SpringArm->TargetArmLength = 500.f;
+	SpringArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
+	SpringArm->TargetArmLength = 225.f;
 	SpringArm->bEnableCameraLag = false;
 	SpringArm->CameraLagSpeed = 5.f;
 	SpringArm->SetupAttachment(PlayerMesh);
@@ -46,9 +46,6 @@ void APlayerPawn::BeginPlay()
 void APlayerPawn::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
-	PlayerMesh->AddRelativeLocation(FVector(UpDist, SideDist, 0.f) * Speed);
-	
 }
 
 // Called to bind functionality to input
@@ -62,11 +59,11 @@ void APlayerPawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponen
 
 void APlayerPawn::MoveUp(float Value)
 {
-	UpDist = Value;
+	PlayerMesh->AddRelativeLocation(FVector(Value, 0, 0.f) * Speed);
 }
 
 void APlayerPawn::MoveSide(float Value)
 {
-	SideDist = Value;
+	PlayerMesh->AddRelativeLocation(FVector(0, Value, 0.f) * Speed);
 }
 
