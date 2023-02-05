@@ -6,6 +6,9 @@
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
 
+
+DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnInteractPressed);
+
 UCLASS()
 class GGJ23PROJECT_API APlayerCharacter : public ACharacter
 {
@@ -39,6 +42,30 @@ public:
 
 	UPROPERTY(BlueprintReadOnly)
 		bool bFacingCam = true;
+		
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasScissors{ false };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasToy{ false };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasPinecone{ false };
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	bool bHasFlashlight{ false };
+
+	UPROPERTY(BlueprintAssignable)
+	FOnInteractPressed InteractButtonPressed;
+
+	/*
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> PauseMenu;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSubclassOf<UUserWidget> HUD;
+	*/
+
 private:
 	FVector SetLocation = FVector::ZeroVector;
 

@@ -78,7 +78,6 @@ void APlayerCharacter::MoveSide(float Value)
 
 void APlayerCharacter::Interact()
 {
-	// if((GetActorLocation() - NPC->GetActorLocation()).Size() < NPC->radius)
-// 	;
+	InteractButtonPressed.Broadcast();
 }
 
