@@ -35,11 +35,18 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
 		float Speed = 5.f;
 
+	TSubclassOf<class UUserWidget> PauseWidget;
+
+	UPROPERTY(BlueprintReadOnly)
+		bool bFacingCam = true;
 private:
 	FVector SetLocation = FVector::ZeroVector;
 
+	
 	void MoveUp(float Value);
 	void MoveSide(float Value);
 	void Interact();
+
+	
 
 };
