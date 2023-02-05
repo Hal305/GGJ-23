@@ -53,10 +53,11 @@ public:
 	bool bHasPinecone{ false };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bHasFlashlight{ false };
+		bool bHasFlashlight
+	{ false };
 
 	UPROPERTY(BlueprintAssignable)
-	FOnInteractPressed InteractButtonPressed;
+		FOnInteractPressed InteractButtonPressed;
 
 	/*
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
