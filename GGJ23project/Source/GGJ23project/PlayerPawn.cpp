@@ -5,7 +5,7 @@
 #include "GameFramework/PlayerInput.h"
 #include "Components/InputComponent.h"
 #include "Kismet/GameplayStatics.h"
-#include "Engine/World.h"
+
 #include "GameFramework/SpringArmComponent.h"
 
 // Sets default values
