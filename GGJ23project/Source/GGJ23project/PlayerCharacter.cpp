@@ -14,13 +14,12 @@ APlayerCharacter::APlayerCharacter()
 	PrimaryActorTick.bCanEverTick = true;
 
 	//Initialising
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
-	
+//	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("RootComponent"));
 	SpringArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmCompComp"));
 	SpringArmComp->SetupAttachment(RootComponent);
 	SpringArmComp->bDoCollisionTest = false;
 	SpringArmComp->SetUsingAbsoluteRotation(true);
-	SpringArmComp->SetRelativeRotation(FRotator(-45.0f, 0.0f, 0.0f));
+	SpringArmComp->SetRelativeRotation(FRotator(-25.0f, 0.0f, 0.0f));
 	SpringArmComp->TargetArmLength = 225.f;
 	SpringArmComp->bEnableCameraLag = false;
 	SpringArmComp->CameraLagSpeed = 5.f;
@@ -50,7 +49,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-	
+
+	AutoPossessPlayer = EAutoReceiveInput::Player0;
 	PlayerInputComponent->BindAxis("MoveUp", this, &APlayerCharacter::MoveUp);
 	PlayerInputComponent->BindAxis("MoveSide", this, &APlayerCharacter::MoveSide);
 	PlayerInputComponent->BindAction("Interact", IE_Pressed, this, &APlayerCharacter::Interact);
@@ -58,14 +58,18 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::MoveUp(float Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Emerald, "MOVE UP");
-	AddMovementInput(GetActorForwardVector(), Value);
+	if(Value > 0.01 || Value < -0.01)
+	{
+		AddMovementInput(GetActorForwardVector(), Value);
+	}
 }
 
 void APlayerCharacter::MoveSide(float Value)
 {
-	GEngine->AddOnScreenDebugMessage(-1, 0.1f, FColor::Emerald, "MOVE RIght");
-	AddMovementInput(GetActorRightVector(), Value);
+	if (Value > 0.01 || Value < -0.01)
+	{
+		AddMovementInput(GetActorRightVector(), Value);
+	}
 }
 
 void APlayerCharacter::Interact()
