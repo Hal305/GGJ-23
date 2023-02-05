@@ -58,6 +58,10 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 void APlayerCharacter::MoveUp(float Value)
 {
+	if (Value > 0.01)
+		bFacingCam = false;
+	if (Value < -0.01)
+		bFacingCam = true;
 	if(Value > 0.01 || Value < -0.01)
 	{
 		AddMovementInput(GetActorForwardVector(), Value);
