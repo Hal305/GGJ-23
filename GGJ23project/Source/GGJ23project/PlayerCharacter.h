@@ -44,7 +44,7 @@ public:
 		bool bFacingCam = true;
 		
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bHasScissors{ false };
+	bool bHasScissors{ true };
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	bool bHasToy{ false };

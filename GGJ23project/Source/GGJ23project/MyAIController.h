@@ -13,5 +13,4 @@ UCLASS()
 class GGJ23PROJECT_API AMyAIController : public AAIController
 {
 	GENERATED_BODY()
-	
 };
